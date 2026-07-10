@@ -21,7 +21,8 @@ void APP::While() {
 
       DrawRectangle(X_, Y_, W_, H_, BLUE); 
       DrawFPS(10, 10);
-      if (X_ != 2000) X_=X_+10;
+      if (X_ == 1520) X_=X_-10;
+      if (X_ != 1520) X_=X_+10;
 
       player.logica(dt);
       player.draw();
