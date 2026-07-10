@@ -3,9 +3,8 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "player/Player.h"
+#include "panel.h"
 
-const int MONITOR_WIDTH = 1920;
-const int MONITOR_HEIGHT = 1080;
 
 class APP {
 public:
@@ -13,4 +12,6 @@ public:
   void While();
 private:
   Player player;
+  Panel panel;
+  Camera2D camera;
 };

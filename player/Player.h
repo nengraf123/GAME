@@ -3,6 +3,8 @@
 
 class Player {
 public:
+  Vector2 getPosition() const { return Vector2{(float)PlayerX, (float)PlayerY}; }
+  Vector2 getSize() const { return Vector2{(float)PlayerW, (float)PlayerH}; }
   void init() {
     PlayerW = 100;
     PlayerH = 100;
