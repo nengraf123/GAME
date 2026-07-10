@@ -8,19 +8,20 @@ using namespace std;
 
 bool init = false;
 
-int H = 200;
+int X_ = 200, Y_ = 200, W_ = 200, H_ = 200;
 
 void APP::While() {
 
   player.init();
+
   while (!WindowShouldClose()) {
     float dt = GetFrameTime();
     BeginDrawing();
       ClearBackground(WHITE);
 
-      DrawRectangle(200, 200, 200, H, BLUE); 
+      DrawRectangle(X_, Y_, W_, H_, BLUE); 
       DrawFPS(10, 10);
-      H--;
+      if (X_ != 2000) X_=X_+10;
 
       player.logica(dt);
       player.draw();
@@ -30,68 +31,3 @@ void APP::While() {
   }
   CloseWindow();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// #include "APP.h"
-// #include <raylib.h>
-//
-// #define jmp goto
-//
-// using namespace std;
-//
-// bool HuinyaB = true;
-// bool PlayerB = true;
-//
-// bool initPlayer = false;
-//
-// int H = 200;
-//
-// void APP::While() {
-//
-//   while (!WindowShouldClose()) {
-//     float dt = GetFrameTime();
-//     BeginDrawing();
-//     jmp DrawM;
-//
-//     HuinyaM:
-//       ClearBackground(BLACK);
-//       DrawRectangle(200, 200, 200, H, BLUE);  // Теперь квадрат не двигается
-//       DrawFPS(10, 10);
-//       H--;
-//       HuinyaB = false;
-//       jmp DrawM;
-//
-//     PlayerM:
-//       if (!initPlayer) {player.init(); initPlayer = true;}
-//       player.logica(dt);
-//       player.draw();
-//       PlayerB = false;
-//       jmp DrawM;
-//
-//
-//     DrawM:
-//         if (HuinyaB) 
-//           jmp HuinyaM;
-//         if (PlayerB) 
-//           jmp PlayerM;
-//     EndDrawing();
-//     HuinyaB = true;
-//     PlayerB = true;
-//   }
-//   CloseWindow();
-// }
-//
-//
