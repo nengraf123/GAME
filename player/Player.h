@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include <raymath.h>
+#include "../TextureScale.h"
 
 class Player {
 public:
@@ -8,8 +9,8 @@ public:
   void init() {
     PlayerW = 100;
     PlayerH = 100;
-    PlayerX = ((double)GetScreenWidth()/2.0f) - ((double)PlayerW/2.0f);
-    PlayerY = ((double)GetScreenHeight()/2.0f) - ((double)PlayerH/2.0f);
+    PlayerX = 0; //((double)GetScreenWidth()/2.0f) - ((double)PlayerW/2.0f);
+    PlayerY = 0; //((double)GetScreenHeight()/2.0f) - ((double)PlayerH/2.0f);
     // PlayerColor = {0, 200, 180, 255};
     PlayerTextureFace = LoadTexture("img/face.png");
     PlayerTextureSide = LoadTexture("img/Side.png");
@@ -35,15 +36,11 @@ public:
   }
   void draw() {
     Texture2D tex = isSide ? PlayerTextureSide : (isUp ? PlayerTextureAss : PlayerTextureFace);
-    float scale = (float)PlayerW / tex.width;
-
-    Rectangle src = { 0, 0, (float)tex.width, (float)tex.height };
-    if (isSide && !facingLeft) {
-        src.width = -src.width; // инверсия по X, когда идём вправо
-    }
-
-    Rectangle dst = { (float)PlayerX, (float)PlayerY, (float)PlayerW, (float)PlayerH };
-    DrawTexturePro(tex, src, dst, Vector2{0, 0}, 0.0f, PlayerColor);
+    
+    // Передаем true в flipX, если идем вправо (isSide && !facingLeft)
+    bool flipX = (isSide && !facingLeft);
+    
+    DrawTextureScaled(tex, (float)PlayerX, (float)PlayerY, (float)PlayerW, (float)PlayerH, PlayerColor, flipX);
   };
   void unload() {
     UnloadTexture(PlayerTextureFace);

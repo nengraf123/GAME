@@ -4,6 +4,7 @@
 #include <raymath.h>
 #include "player/Player.h"
 #include "panel.h"
+#include "world/world.h"
 
 
 class APP {
@@ -13,5 +14,6 @@ public:
 private:
   Player player;
   Panel panel;
+  World world;
   Camera2D camera;
 };
