@@ -5,6 +5,8 @@
 #include "player/Player.h"
 #include "panel.h"
 #include "world/world.h"
+#include "enemy/zombie.h"
+#include "egor.h"
 
 
 class APP {
@@ -15,5 +17,7 @@ private:
   Player player;
   Panel panel;
   World world;
+  Zombie zombie;
+  Egor egor;
   Camera2D camera;
 };
