@@ -8,6 +8,7 @@
 #include "world/world.h"
 #include "enemy/zombie.h"
 #include "egor.h"
+#include "stone.h"
 
 
 class APP {
@@ -21,5 +22,7 @@ private:
   Zombie zombie;
   Egor egor;
   Hitbox hitbox;
+  // Stone stone;
+  std::vector<Stone> stone;
   Camera2D camera;
 };
