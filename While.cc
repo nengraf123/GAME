@@ -11,7 +11,10 @@ float X2_ = 200, Y2_ = 200, W2_ = 200, H2_ = 200;
 
 void APP::While() {
   player.init();
-  Rectangle playerRec = { player.getPosition().x, player.getPosition().y, player.getSize().x, player.getSize().y };
+  // регистрируем камни
+  int stone1 = Hitbox::addStatic(Hitbox(Vector2{X_, Y_},  Vector2{W_,  H_}));
+  int stone2 = Hitbox::addStatic(Hitbox(Vector2{X2_, Y2_}, Vector2{W2_, H2_}));
+
   panel.init();
   world.init();
   zombie.init();
@@ -29,26 +32,23 @@ void APP::While() {
       BeginMode2D(camera);
         world.logica(dt);
         world.draw(camera);
+
         zombie.logica(dt, player.getPosition(), player.getSize());
         zombie.draw();
+
         egor.logica(dt, player.getPosition(), player.getSize(), camera);
         egor.draw(player.getPosition(), player.getSize());
 
         DrawTextureScaled(stone, X_, Y_, W_, H_);
         if (X_ <= 1520) X_ = X_ + 500 * dt;
+        Hitbox::getStatic(stone1).setPosition(Vector2{X_, Y_}); // обновляем позицию, не создаём заново
 
         DrawTextureScaled(stone, X2_, Y2_, W2_, H2_);
         X2_ = X2_ - 200 * dt;
+        Hitbox::getStatic(stone2).setPosition(Vector2{X2_, Y2_});
 
         player.logica(dt);
         player.draw();
-        Rectangle stone1Rec = { X_, Y_, W_, H_ };
-        Rectangle stone2Rec = { X2_, Y2_, W2_, H2_ };
-        playerRec.x = player.getPosition().x;
-        playerRec.y = player.getPosition().y;
-        resolveCollision(playerRec, stone1Rec);
-        resolveCollision(playerRec, stone2Rec);
-        player.setPosition(Vector2{ playerRec.x, playerRec.y });
       EndMode2D();
 
       panel.logica(dt);

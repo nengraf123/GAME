@@ -2,11 +2,13 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "../TextureScale.h"
+#include "../hitbox.h"
 
 class Player {
 public:
   Vector2 getPosition() const { return Vector2{(float)PlayerX, (float)PlayerY}; }
   Vector2 getSize() const { return Vector2{(float)PlayerW, (float)PlayerH}; }
+  const Hitbox& getHitbox() const { return hitbox; }
 
   void init() {
     PlayerW = 100;
@@ -17,6 +19,7 @@ public:
     PlayerTextureFace = LoadTexture("img/face.png");
     PlayerTextureSide = LoadTexture("img/Side.png");
     PlayerTextureAss  = LoadTexture("img/ass.png");
+    hitbox.set(getPosition(), getSize());
   }
 
   void logica(float dt) {
@@ -43,6 +46,10 @@ public:
     }
 
     updateFacing(dir);
+    hitbox.setPosition(getPosition());
+    Hitbox::resolveAgainstAllStatic(hitbox);
+    PlayerX = hitbox.getPosition().x;
+    PlayerY = hitbox.getPosition().y;
   }
 
   void draw() {
@@ -93,4 +100,6 @@ private:
   Facing facing = Facing::Down;
   bool facingLeft = false;
   bool autoWalkLeft = false;
+
+  Hitbox hitbox;
 };

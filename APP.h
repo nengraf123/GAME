@@ -2,6 +2,7 @@
 #include <iostream>
 #include <raylib.h>
 #include <raymath.h>
+#include "hitbox.h"
 #include "player/Player.h"
 #include "panel.h"
 #include "world/world.h"
@@ -19,5 +20,6 @@ private:
   World world;
   Zombie zombie;
   Egor egor;
+  Hitbox hitbox;
   Camera2D camera;
 };

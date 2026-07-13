@@ -60,7 +60,7 @@ private:
   }
 
   // Детерминированный "хэш-шум" по координатам тайла
-  static float hashNoise(int x, int y, int seed = 1337) {
+  static float hashNoise(int x, int y, int seed = 1000) { // 1337
     int n = x * 374761393 + y * 668265263 + seed * 69069;
     n = (n ^ (n >> 13)) * 1274126177;
     n = n ^ (n >> 16);

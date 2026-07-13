@@ -4,14 +4,24 @@
 #include "../TextureScale.h"
 #include "../lib.h"
 #include <vector>
+#include "../hitbox.h"
 
 class Zombie {
 public:
+  Vector2 getPosition() const { return { X, Y }; }
+  Vector2 getSize() const { return { W, H }; }
+  const Hitbox& getHitbox() const { return hitbox; }
+
+  void setPosition(Vector2 pos) {
+    X = pos.x;
+    Y = pos.y;
+  }
   void init() {
     zombieTex = LoadTexture("img/zombie.png");
     X = -300;
     Y = -300;
     zombieDie = false;
+    hitbox.set(getPosition(), getSize());
   }
 
   // Двигаем зомби, проверяем столкновение с игроком, показываем окно "убить?"
@@ -29,6 +39,13 @@ public:
       X += dir.x * speed * dt;
       Y += dir.y * speed * dt;
     }
+
+    // не даём зомби проходить сквозь камни и прочие статичные препятствия
+    hitbox.setPosition({ X, Y });
+    Hitbox::resolveAgainstAllStatic(hitbox);
+    X = hitbox.getPosition().x;
+    Y = hitbox.getPosition().y;
+
 
     if (checkCollision(playerPos, playerSize)) {
       if (IsKeyPressed(KEY_ENTER)) zombieDie = true;
@@ -75,4 +92,5 @@ private:
   float speed = 200.0f;
   bool zombieDie = false;
   bool showPrompt = false;
+  Hitbox hitbox;
 };
