@@ -38,6 +38,7 @@
 *.exe
 *.out
 *.app
+*.linux
 
 # Build directories
 build/
